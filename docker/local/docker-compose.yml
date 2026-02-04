@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: paipai-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-paipai}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - paipai-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: paipai-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - paipai-net
+
+  backend:
+    build: 
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: paipai-backend
+    restart: on-failure
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8080:8080"
+      - "5005:5005" # Remote Debugging
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME:-paipai}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-password}
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    networks:
+      - paipai-net
+    volumes:
+      - ../../backend:/app # Hot Reload Binding (Optional based on DevTools setup)
+
+  admin:
+    build:
+      context: ../../admin
+      dockerfile: Dockerfile
+    container_name: paipai-admin
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../admin:/app
+      - /app/node_modules
+    networks:
+      - paipai-net
+
+networks:
+  paipai-net:
+    driver: bridge
+
+volumes:
+  db_data:

@@ -1,0 +1,26 @@
+:root {
+  /* Brand Colors - Placeholder: Orange based on '派派' (Pie/Pi) often associated with warm colors */
+  --primary-color: #f97316; /* Orange-500 */
+  --primary-hover: #ea580c; /* Orange-600 */
+  --bg-color: #f3f4f6;      /* Gray-100 */
+  --text-main: #1f2937;     /* Gray-800 */
+  
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+#root {
+  height: 100vh;
+}
+
+/* Ant Design Overrides if needed */
+.ant-layout {
+  min-height: 100vh;
+}

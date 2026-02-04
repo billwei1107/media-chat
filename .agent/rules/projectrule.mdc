@@ -1,0 +1,28 @@
+# Project Rules
+
+@import "User Global Rules"
+
+## 專案特定規範 (Project Specific Rules)
+
+### 1. 專案結構
+- `需求/`: 存放所有需求文檔與功能規劃。
+- `JPG 视觉图/`: 存放 UI 設計圖。
+- `devlog/`: 開發日誌 (依循全域規範)。
+
+### 2. 技術棧 (Technology Stack)
+- **移動端 (Mobile App)**: **Flutter**
+  - 原因: 跨平台高效能，且具備強大的 **Stateful Hot Reload**。
+- **後端 (Backend)**: **Java Spring Boot**
+  - 原因: 企業級穩健性。
+  - **開發要求**: 必須配置 `spring-boot-devtools` 以支援 Class Reloading。
+- **後台管理 (Admin Web)**: **React** (Vite)
+  - 原因: 現代化前端，Vite 提供極速 **HMR (Hot Module Replacement)**。
+
+### 3. 開發效率規範 (Development Efficiency & Hot Reload)
+為確保開發流暢度，所有專案必須啟用熱重載 (Hot Reload) 功能：
+- **Flutter**: 使用 `r` 或 `R` 進行熱重載/熱重啟。
+- **Spring Boot**: IDE 改動 Class 後必須觸發自動編譯 (Auto Build)，配合 DevTools 實現熱部署。
+- **React**: 保持 Dev Server 常駐，存檔即更新。
+
+### 4. 文件維護
+- 每次功能變更務必同步更新 `需求/需求文檔.md`。
