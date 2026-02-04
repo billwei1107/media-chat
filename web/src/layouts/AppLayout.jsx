@@ -8,7 +8,8 @@ import {
     PlusCircleOutlined,
     SearchOutlined,
     BellOutlined,
-    MessageOutlined
+    MessageOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { designTokens } from '../theme/designTokens';
@@ -25,6 +26,7 @@ const AppLayout = () => {
         { key: '/discovery', icon: <CompassOutlined style={{ fontSize: '24px' }} />, label: '發現' },
         { key: '/live', icon: <VideoCameraOutlined style={{ fontSize: '24px' }} />, label: '直播' },
         { key: '/profile', icon: <UserOutlined style={{ fontSize: '24px' }} />, label: '我的' },
+        { key: '/settings', icon: <SettingOutlined style={{ fontSize: '24px' }} />, label: '設定' },
     ];
 
     return (
